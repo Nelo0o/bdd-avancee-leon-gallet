@@ -36,3 +36,32 @@ END;
 
 CALL last_post_from_author((SELECT id FROM authors WHERE first_name = 'Savanah'));
 ```
+
+---
+
+## Un trigger d'historisation des posts
+
+```SQL
+CREATE TABLE IF NOT EXISTS deleted_posts (
+    id INT,
+    title VARCHAR(255),
+    content TEXT,
+    author_id INT,
+    date DATETIME,
+    deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id, deleted_at)
+);
+
+DROP TRIGGER IF EXISTS before_posts_delete;
+
+CREATE TRIGGER before_posts_delete
+BEFORE DELETE ON posts
+FOR EACH ROW
+BEGIN
+    INSERT INTO deleted_posts (id, title, content, author_id, date)
+    VALUES (OLD.id, OLD.title, OLD.content, OLD.author_id, OLD.date);
+END;
+
+DELETE FROM posts WHERE id = 10;
+SELECT * FROM deleted_posts;
+```
