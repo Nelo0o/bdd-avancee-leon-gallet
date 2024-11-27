@@ -1,0 +1,15 @@
+{
+  "name": "exercice-5",
+  "version": "1.0.0",
+  "description": "MySQL database connection exercise",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1"
+  }
+}
