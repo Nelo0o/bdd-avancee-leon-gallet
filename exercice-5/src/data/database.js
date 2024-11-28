@@ -20,6 +20,15 @@ async function createConnection() {
   return connection;
 }
 
+export const connexion = await createConnection();
+
+export const closeConnection = async () => {
+  if (connection) {
+    await connection.end();
+    connection = null;
+  }
+};
+
 // Authors
 export const getAllAuthors = async () => {
   const connexion = await createConnection();
